@@ -1,0 +1,294 @@
+<!-- 
+Programming Mobile applications
+Avengers Indexed DB
+Created by: Gabriel Siewert
+    Email: gsiewert2384@conestogac.on.ca
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+        <title>Avengers Indexed DB</title>
+        <!--jquery-->
+        <script src="js/lib/jquery-2.1.4.js"></script>
+        <!--jquery mobile-->
+        <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+        <!--jquery mobile stylesheet-->
+        <link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.css">
+        <!--jquery validation-->
+        <script src="js/lib/jquery.validate.js"></script>
+        <!-- our scripts -->
+        <script src="js/database.js"></script>
+        <script src="js/DAL.js"></script>
+        <script src="js/models.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/facade.js"></script>
+        <script src="js/global.js"></script>
+        <!-- our styles -->
+        <link rel="stylesheet" href="css/mystyle.css">
+    </head>
+    <body>
+        <!-- Home Page -->
+        <div id="pageHome" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+                <h1>Home</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#pageHome" data-icon="home" class="ui-btn-active ui-state-persist">Home</a></li>
+                        <li><a href="#pageAdd" data-icon="plus">Add</a></li>
+                        <li><a href="#pageFriends" data-icon="grid">List of Friends</a></li>
+                        <li><a href="#pageSettings" data-icon="gear">Settings</a></li>
+                        <li><a href="#pageContact" data-icon="phone">Contact</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <h2 class="center">The earth's mightiest heroes</h2>
+                <div class="center">
+                    <img src="img/avengers.jpg" width="80%" alt="avengers">
+                    <h3>Mighties heroes for 50 years</h3>
+                    <p>
+                        The avengers is a team of superheroes, appearing in the comic books punlished by Marvel Comics
+                    </p>
+                    <h3>History</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aliquid amet animi
+                        cum delectus deleniti dolor eos exercitationem facere, harum itaque laboriosam laborum libero
+                        minus nisi nostrum officia optio porro quam quasi repellat sed sunt ut veritatis vero voluptas.
+                    </p>
+                    <a href="https://www.iconarchive.com/search?q=avengers" data-role="button" class="ui-btn-active">More
+                        images: <br> https://www.iconarchive.com/search?q=avengers
+                    </a>
+                </div>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1> &copy; Gabriel Siewert </h1>
+            </footer>
+        </div>
+        <!-- Add Page -->
+        <div id="pageAdd" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+                <h1>Add a Friend/Enemy</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#pageHome" data-icon="home">Home</a></li>
+                        <li><a href="#pageAdd" data-icon="plus" class="ui-btn-active ui-state-persist">Add</a></li>
+                        <li><a href="#pageFriends" data-icon="grid">List of Friends</a></li>
+                        <li><a href="#pageSettings" data-icon="gear">Settings</a></li>
+                        <li><a href="#pageContact" data-icon="phone">Contact</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <div id="mainDiv">
+                    <h2>Add a friend/enemy</h2>
+                    <form id="frmAddFriendEnemy" name="frmAddFriendEnemy" action="" method="post">
+                        <label for="txtNameAdd">Name</label>
+                        <input type="text" name="txtNameAdd" id="txtNameAdd" data-clear-btn="true">
+
+                        <label for="txtFullNameAdd">Full Name</label>
+                        <input type="text" name="txtFullNameAdd" id="txtFullNameAdd" data-clear-btn="true">
+
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <label for="radFriendAdd">Friend</label>
+                            <input type="radio" id="radFriendAdd" name="radFriendEnemyAdd" checked>
+                            <label for="radEnemyAdd">Enemy</label>
+                            <input type="radio" id="radEnemyAdd" name="radFriendEnemyAdd">
+                        </fieldset>
+
+                        <label for="txtDOBAdd">Date of Birth</label>
+                        <input type="date" id="txtDOBAdd" name="txtDOBAdd" data-clear-btn="true">
+
+                        <label for="txtAgeAdd">Age (Calculated)</label>
+                        <input type="text" name="txtAgeAdd" id="txtAgeAdd" readonly>
+
+                        <button type="button" id="btnCalculate" name="btnCalculate" data-icon="arrow-r" data-theme="b">
+                            Calculate Age
+                        </button>
+
+                        <button type="button" id="btnAdd" name="btnAdd" data-icon="plus" class="ui-btn-active">
+                            Add
+                        </button>
+
+                    </form>
+                </div>
+                <div id="extraDiv">
+                    <h2>Testing some other validations (not used in DB)</h2>
+                    <form id="frmExtra" name="frmExtra">
+
+                        <input type="text" id="txtPassword" name="txtPassword" data-clear-btn="true"
+                               placeholder="Enter password...">
+                        <input type="text" id="txtVerifyPassword" name="txtVerifyPassword" data-clear-btn="true"
+                               placeholder="Verify password...">
+                        <input type="text" id="txtEmail" name="txtEmail" data-clear-btn="true"
+                               placeholder="Enter email...">
+                        <input type="text" id="txtURL" name="txtURL" data-clear-btn="true"
+                               placeholder="Enter a valid URL...">
+
+                        <button type="button" id="btnExtra" name="btnExtra" data-icon="plus"
+                                class="ui-btn-active">Test Validation
+                        </button>
+                    </form>
+                </div>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1> &copy; Gabriel Siewert </h1>
+            </footer>
+        </div>
+        <!-- Friends Page -->
+        <div id="pageFriends" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+                <h1>List of Friends/Enemies</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#pageHome" data-icon="home">Home</a></li>
+                        <li><a href="#pageAdd" data-icon="plus">Add</a></li>
+                        <li><a href="#pageFriends" data-icon="grid" class="ui-btn-active ui-state-persist">List of
+                            Friends</a></li>
+                        <li><a href="#pageSettings" data-icon="gear">Settings</a></li>
+                        <li><a href="#pageContact" data-icon="phone">Contact</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <h2>Cast of avengers</h2>
+                <ul id="lvAll" data-role="listview" class="ui-listview-inset">
+                    <li>
+                        <a href="#pageDetail"><img src="img/Captain-America-icon.png" alt="captain america">
+                            <h3>Captin America</h3>
+                            <p>Chris Evens</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#pageDetail"><img src="img/Iron-Man-icon.png" alt="iron man">
+                            <h3>Iron Man</h3>
+                            <p>Robert Downey Jr</p>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1> &copy; Gabriel Siewert </h1>
+            </footer>
+        </div>
+        <!-- Settings Page -->
+        <div id="pageSettings" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+                <h1>Settings</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#pageHome" data-icon="home">Home</a></li>
+                        <li><a href="#pageAdd" data-icon="plus">Add</a></li>
+                        <li><a href="#pageFriends" data-icon="grid">List of Friends</a></li>
+                        <li><a href="#pageSettings" data-icon="gear" class="ui-btn-active ui-state-persist">Settings</a>
+                        </li>
+                        <li><a href="#pageContact" data-icon="phone">Contact</a></li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <button type="button" id="btnCreateDatabase" name="btnCreateDatabase" data-icon="check">
+                    Create Database
+                </button>
+                <button type="button" id="btnClearDatabase" name="btnClearDatabase" data-icon="minus" data-theme="b">
+                    Clear Database
+                </button>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1> &copy; Gabriel Siewert </h1>
+            </footer>
+        </div>
+        <!-- Contact Page -->
+        <div id="pageContact" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+                <h1>Contact</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#pageHome" data-icon="home">Home</a></li>
+                        <li><a href="#pageAdd" data-icon="plus">Add</a></li>
+                        <li><a href="#pageFriends" data-icon="grid">List of Friends</a></li>
+                        <li><a href="#pageSettings" data-icon="gear">Settings</a></li>
+                        <li><a href="#pageContact" data-icon="phone" class="ui-btn-active ui-state-persist">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <h2>Contact us</h2>
+                <h3>AvangersIndexedDB application develped by</h3>
+                <code>Gabriel Siewert</code>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1> &copy; Gabriel Siewert </h1>
+            </footer>
+        </div>
+        <!-- Detail Page -->
+        <div id="pageDetail" data-role="page">
+            <header data-role="header" data-theme="a" data-position="fixed">
+                <h1>Details</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="#pageHome" data-icon="home">Home</a></li>
+                        <li><a href="#pageAdd" data-icon="plus">Add</a></li>
+                        <li><a href="#pageFriends" data-icon="grid" class="ui-btn-active ui-state-persist">List of
+                            Friends</a></li>
+                        <li><a href="#pageSettings" data-icon="gear">Settings</a></li>
+                        <li><a href="#pageContact" data-icon="phone">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <section data-role="content">
+                <h2>Modify a Friend</h2>
+                <form id="frmModifyFriendEnemy" name="frmModifyFriendEnemy" action="" method="post">
+
+                    <div id="forDebugOnly">
+                        <input type="text" id="txtId" name="txtId" placeholder="Enter ID...">
+                    </div>
+
+                    <label for="txtNameModify">Name</label>
+                    <input type="text" name="txtNameModify" id="txtNameModify" data-clear-btn="true">
+
+                    <label for="txtFullNameModify">Full Name</label>
+                    <input type="text" name="txtFullNameModify" id="txtFullNameModify" data-clear-btn="true">
+
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <label for="radFriendModify">Friend</label>
+                        <input type="radio" id="radFriendModify" name="radFriendEnemyModify" checked>
+                        <label for="radEnemyModify">Enemy</label>
+                        <input type="radio" id="radEnemyModify" name="radFriendEnemyModify">
+                    </fieldset>
+
+                    <label for="txtDOBModify">Date of Birth</label>
+                    <input type="date" id="txtDOBModify" name="txtDOBModify" data-clear-btn="true">
+
+                    <label for="txtAgeModify">Age (Calculated)</label>
+                    <input type="text" name="txtAgeModify" id="txtAgeModify" readonly>
+
+                    <button type="button" id="btnUpdate" name="btnUpdate" data-icon="plus" class="ui-btn-active">
+                        Update
+                    </button>
+
+                    <button type="button" id="btnDelete" name="btnDelete" data-icon="minus" data-theme="b">
+                        Delete
+                    </button>
+
+                    <div id="debugOnly">
+                        <button type="button" id="btnShowOne" name="btnShowOne" data-theme="a">
+                            Show one
+                        </button>
+                        <button type="button" id="btnShowAll" name="btnShowAll" data-theme="a">
+                            Show all
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h1> &copy; Gabriel Siewert </h1>
+            </footer>
+        </div>
+    </body>
+</html>
