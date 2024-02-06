@@ -32,3 +32,11 @@ function showCalculatedAge() {
     const age = getCurrentAge(dob);
     $("#txtAgeAdd").val(age);
 }
+
+function initializeDatabase() {
+    createDatabase().then((data) => {
+        console.log("Database created successfully");
+    }).catch((e) => {
+        console.log("Error in database creation");
+    });
+}
