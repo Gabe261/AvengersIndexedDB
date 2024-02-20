@@ -26,7 +26,6 @@ function addFriendEnemy() {
             console.log(e);
         });
 
-
     } else {
         // otherwise
         // show error message
@@ -46,6 +45,23 @@ function showCalculatedAge() {
     const dob = $("#txtDOBAdd").val();
     const age = getCurrentAge(dob);
     $("#txtAgeAdd").val(age);
+}
+
+function showAllFriendEnemy() {
+    Friends.selectAll().then((data) => {
+        console.log(data);
+    }).catch((e) => {
+        console.log(e);
+    });
+}
+
+function showOneFriendEnemy() {
+    const id = Number($("#txtId").val());
+    Friends.select(id).then((data) => {
+        console.log(data);
+    }).catch((e) => {
+        console.log(e);
+    });
 }
 
 function initializeDatabase() {

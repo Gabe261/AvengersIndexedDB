@@ -13,7 +13,6 @@ const Friends = {
             transaction.oncomplete = (event) => {
                 console.log("Success: insert transaction successful");
             }
-
             transaction.onerror = (event) => console.log("Error: error in insert transaction " + event);
 
             const friendsStore = transaction.objectStore("friends");
@@ -30,8 +29,54 @@ const Friends = {
         });
     },
     selectAll: function () {
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(["friends"], "readonly"); // Will be readonly if left empty
+            transaction.oncomplete = (event) => {
+                console.log("Success: selectAll transaction successful");
+            }
+            transaction.onerror = (event) => console.log("Error: error in selectAll transaction " + event);
+
+            const friendsStore = transaction.objectStore("friends");
+            const friendsCursor = friendsStore.openCursor();
+
+            let friends = [];
+            friendsCursor.onsuccess = (event) => {
+                const cursor = event.target.result;
+                // If the cursor is pointing to an object (will be the first object in db) it will push it to the friends array.
+                // The cursor.continue line will then restart the if statement on the next object in the db.
+                // If the next object is null it will go to the else block and resolve (return) the array of friends.
+                if (cursor) {
+                    friends.push(cursor.value);
+                    cursor.continue();
+                } else {
+                    resolve(friends);
+                }
+            }
+            friendsCursor.onerror = (event) => {
+                reject(event);
+            }
+        });
     },
-    select: function () {
+    select: function (id) {
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(["friends"]);
+            transaction.oncomplete = (event) => {
+                console.log("Success: select transaction successful");
+            }
+            transaction.onerror = (event) => console.log("Error: error in select transaction " + event);
+
+            const friendsStore = transaction.objectStore("friends");
+
+            const req = friendsStore.get(id);
+
+            req.onsuccess = (event) => {
+                event.target.result ? resolve(event.target.result) : reject(null);
+            }
+            req.onerror = (event) => {
+                console.log(`Error: error in select ${event}`);
+                reject(event);
+            }
+        });
     },
     delete: function () {
     },
