@@ -78,8 +78,49 @@ const Friends = {
             }
         });
     },
-    delete: function () {
+    delete: function (id) {
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(["friends"], "readwrite");
+            transaction.oncomplete = (event) => {
+                console.log("Success: delete transaction successful");
+            }
+            transaction.onerror = (event) => console.log("Error: error in delete transaction " + event);
+
+            const friendsStore = transaction.objectStore("friends");
+            const req = friendsStore.delete(id);
+
+            req.onsuccess = (event) => {
+                console.log(`Success: friend deleted successfully ${event}`);
+                resolve(event);
+            }
+            req.onerror = (event) => {
+                console.log(`Error: error in delete ${event}`);
+                reject(event);
+            }
+        });
     },
-    update: function () {
+    update: function (friend) {
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(["friends"], "readwrite");
+            transaction.oncomplete = (event) => {
+                console.log("Success: update transaction successful");
+            }
+            transaction.onerror = (event) => console.log("Error: error in update transaction " + event);
+
+            const friendsStore = transaction.objectStore("friends");
+
+            let data = friend;
+
+            const req = friendsStore.put(data);
+            req.onsuccess = (event) => {
+                // returns the key of newly add item
+                console.log(`Success: friend updated successfully ${event}`);
+                resolve(event);
+            }
+            req.onerror = (event) => {
+                console.log(`Error: error in update ${event}`);
+                reject(event);
+            }
+        });
     }
 }

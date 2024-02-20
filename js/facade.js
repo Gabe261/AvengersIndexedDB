@@ -64,6 +64,34 @@ function showOneFriendEnemy() {
     });
 }
 
+function updateFriendEnemy() {
+    const id = Number($("#txtId").val());
+    const name = $("#txtNameModify").val();
+    const fullName = $("#txtFullNameModify").val();
+    const isFriend = $("#radFriendModify").prop("checked");
+    const dob = $("#txtDOBModify").val();
+    const friend = new Friend(name, fullName, isFriend, dob);
+    //important
+    friend.id = id;
+    //------------------
+    Friends.update(friend).then((data) => {
+        console.log(data)
+        alert("Record update successfully");
+    }).catch((e) => {
+        console.log(e);
+    });
+}
+
+function deleteFriendEnemy() {
+    const id = Number($("#txtId").val());
+    Friends.delete(id).then((data) => {
+        console.log(data);
+        alert("Record deleted successfully");
+    }).catch((e) => {
+        console.log(e);
+    });
+}
+
 function initializeDatabase() {
     createDatabase().then((data) => {
         console.log("Database created successfully");

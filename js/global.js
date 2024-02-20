@@ -33,6 +33,14 @@ function btnShowOne_click() {
     showOneFriendEnemy();
 }
 
+function btnUpdate_click() {
+    updateFriendEnemy();
+}
+
+function btnDelete_click() {
+    deleteFriendEnemy();
+}
+
 function init() {
     console.log("DOM is ready");
     $("#btnAdd").on("click", btnAdd_click);
@@ -41,6 +49,8 @@ function init() {
     $("#txtDOBAdd").on("change", txtDOBAdd_change);
     $("#btnCreateDatabase").on("click", btnCreateDatabase_click);
 
+    $("#btnUpdate").on("click", btnUpdate_click);
+    $("#btnDelete").on("click", btnDelete_click);
 
     // debug events
     $("#btnShowAll").on("click", btnShowAll_click);
