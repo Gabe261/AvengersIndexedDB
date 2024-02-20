@@ -122,5 +122,26 @@ const Friends = {
                 reject(event);
             }
         });
+    },
+    deleteAll: function () {
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(["friends"], "readwrite");
+            transaction.oncomplete = (event) => {
+                console.log("Success: deleteAll transaction successful");
+            }
+            transaction.onerror = (event) => console.log("Error: error in deleteAll transaction " + event);
+
+            const friendsStore = transaction.objectStore("friends");
+            const req = friendsStore.clear();
+
+            req.onsuccess = (event) => {
+                console.log(`Success: all friends deleted successfully ${event}`);
+                resolve(event);
+            }
+            req.onerror = (event) => {
+                console.log(`Error: error in deleteAll ${event}`);
+                reject(event);
+            }
+        });
     }
 }

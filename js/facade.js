@@ -92,6 +92,18 @@ function deleteFriendEnemy() {
     });
 }
 
+function clearAllFriendEnemy() {
+    const result = confirm("Do you really want to clear all data?");
+    if (result) {
+        Friends.deleteAll().then((data) => {
+            console.log(data);
+            alert("All records deleted successfully");
+        }).catch((e) => {
+            console.log(e);
+        });
+    }
+}
+
 function initializeDatabase() {
     createDatabase().then((data) => {
         console.log("Database created successfully");

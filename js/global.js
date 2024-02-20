@@ -41,6 +41,10 @@ function btnDelete_click() {
     deleteFriendEnemy();
 }
 
+function btnClearDatabase_click() {
+    clearAllFriendEnemy();
+}
+
 function init() {
     console.log("DOM is ready");
     $("#btnAdd").on("click", btnAdd_click);
@@ -51,6 +55,7 @@ function init() {
 
     $("#btnUpdate").on("click", btnUpdate_click);
     $("#btnDelete").on("click", btnDelete_click);
+    $("#btnClearDatabase").on("click", btnClearDatabase_click);
 
     // debug events
     $("#btnShowAll").on("click", btnShowAll_click);
