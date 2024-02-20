@@ -9,9 +9,24 @@ function addFriendEnemy() {
     // check the validation
     // if validation succeeds
     if (doValidate_frmAdd()) {
+
         // read inputs
-        // save to database
         console.log('form is valid');
+
+        const name = $("#txtNameAdd").val();
+        const fullName = $("#txtFullNameAdd").val();
+        const isFriend = $("#radFriendAdd").prop("checked");
+        const dob = $("#txtDOBAdd").val();
+        const friend = new Friend(name, fullName, isFriend, dob);
+
+        // save to database
+        Friends.insert(friend).then((data) => {
+            alert(`Record added successfully : id: ${data}`);
+        }).catch((e) => {
+            console.log(e);
+        });
+
+
     } else {
         // otherwise
         // show error message
