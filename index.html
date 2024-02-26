@@ -188,9 +188,11 @@ Created by: Gabriel Siewert
                 </div>
             </header>
             <section data-role="content">
-                <button type="button" id="btnCreateDatabase" name="btnCreateDatabase" data-icon="check">
-                    Create Database
-                </button>
+                <div hidden>
+                    <button type="button" id="btnCreateDatabase" name="btnCreateDatabase" data-icon="check">
+                        Create Database
+                    </button>
+                </div>
                 <button type="button" id="btnClearDatabase" name="btnClearDatabase" data-icon="minus" data-theme="b">
                     Clear Database
                 </button>
@@ -243,7 +245,7 @@ Created by: Gabriel Siewert
                 <h2>Modify a Friend</h2>
                 <form id="frmModifyFriendEnemy" name="frmModifyFriendEnemy" action="" method="post">
 
-                    <div id="forDebugOnly">
+                    <div id="forDebugOnly" hidden>
                         <input type="text" id="txtId" name="txtId" placeholder="Enter ID...">
                     </div>
 
@@ -274,7 +276,7 @@ Created by: Gabriel Siewert
                         Delete
                     </button>
 
-                    <div id="debugOnly">
+                    <div id="debugOnly" hidden>
                         <button type="button" id="btnShowOne" name="btnShowOne" data-theme="a">
                             Show one
                         </button>

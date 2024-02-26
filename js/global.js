@@ -45,6 +45,14 @@ function btnClearDatabase_click() {
     clearAllFriendEnemy();
 }
 
+function pageFriends_pageshow() {
+    showAllFriendEnemy();
+}
+
+function pageDetail_pageShow() {
+    showOneFriendEnemy();
+}
+
 function init() {
     console.log("DOM is ready");
     $("#btnAdd").on("click", btnAdd_click);
@@ -57,9 +65,13 @@ function init() {
     $("#btnDelete").on("click", btnDelete_click);
     $("#btnClearDatabase").on("click", btnClearDatabase_click);
 
-    // debug events
+    // Debug events
     $("#btnShowAll").on("click", btnShowAll_click);
     $("#btnShowOne").on("click", btnShowOne_click);
+
+    // Page show events
+    $("#pageFriends").on("pageshow", pageFriends_pageshow);
+    $("#pageDetail").on("pageshow", pageDetail_pageShow);
 }
 
 function initDB() {

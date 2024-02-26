@@ -50,22 +50,54 @@ function showCalculatedAge() {
 function showAllFriendEnemy() {
     Friends.selectAll().then((data) => {
         console.log(data);
+        let htmlCode = "";
+
+        let lv = $("#lvAll");
+        // clear the list view that will show all friends/enemies
+        lv.empty();
+
+        data.forEach((item) => {
+            htmlCode +=
+                `
+                <li>
+                    <a data-role="button" data-row-id="${item.id}" href="#pageDetail">
+                        <h3>${item.name}</h3>
+                        <p>${item.fullName} | ${item.dob} | Friend: ${item.isFriend}</p>
+                    </a>
+                </li>
+                `;
+        });
+
+        lv = lv.append(htmlCode);
+        lv.listview("refresh");
+
+        $("#lvAll a").on("click", function () {
+            localStorage.setItem("id", $(this).attr("data-row-id"));
+            $.mobile.changePage("#pageDetail", {transition: "none"});
+        });
+
     }).catch((e) => {
         console.log(e);
     });
 }
 
 function showOneFriendEnemy() {
-    const id = Number($("#txtId").val());
+    const id = Number(localStorage.getItem("id"));
     Friends.select(id).then((data) => {
         console.log(data);
+        $("#txtNameModify").val(data.name);
+        $("#txtFullNameModify").val(data.fullName);
+        $("#txtDOBModify").val(data.dob);
+        data.isFriend ? $("#radFriendModify").prop("checked", true) : $("#radEnemyModify").prop("checked", true);
+        $("#pageDetail :radio").checkboxradio("refresh");
+
     }).catch((e) => {
         console.log(e);
     });
 }
 
 function updateFriendEnemy() {
-    const id = Number($("#txtId").val());
+    const id = Number(localStorage.getItem("id"));
     const name = $("#txtNameModify").val();
     const fullName = $("#txtFullNameModify").val();
     const isFriend = $("#radFriendModify").prop("checked");
